@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-rtszg1xv0ern2(chdammhp42s0jg#tjfeko=s=c*q6##%mhe=9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "muhammad-fazil31-playbox.pbp.cs.ui.ac.id"]
 
 
 # Application definition
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
+    'main',
 ]
 
 MIDDLEWARE = [
