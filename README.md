@@ -1,8 +1,24 @@
 # PlayBox
 
-## Implementasi Checklist Tugas Secara Step-by-Step
+PlayBox is a Django e-commerce site for gaming gear and accessories. It offers a user-friendly interface for browsing and purchasing gaming products, with a focus on delivering an engaging shopping experience.
 
-### 1. Membuat Proyek Django Baru
+### Tech Stack
+
+- **Backend**: Django
+- **Styling**: TailwindCSS
+- **Hosting**: Pacil Web Service (PWS)
+
+### Deployment
+
+Explore the live version here: [PlayBox](http://muhammad-fazil31-playbox.pbp.cs.ui.ac.id/)
+
+---
+
+## Tugas 2 PBP Gasal 2024/2025
+
+### Implementasi Checklist Tugas Secara Step-by-Step
+
+#### 1. Membuat Proyek Django Baru
 
 Langkah pertama yang saya lakukan adalah membuat proyek Django baru. Saya menggunakan perintah `django-admin startproject` untuk menginisialisasi proyek dengan nama `playbox`. Perintah ini menciptakan struktur dasar proyek Django yang meliputi beberapa file konfigurasi dan folder.
 
@@ -10,7 +26,7 @@ Langkah pertama yang saya lakukan adalah membuat proyek Django baru. Saya menggu
 django-admin startproject playbox .
 ```
 
-### 2. Membuat Aplikasi `main`
+#### 2. Membuat Aplikasi `main`
 
 Setelah proyek berhasil dibuat, langkah berikutnya adalah menambahkan aplikasi baru dengan nama `main`. Dalam Django, aplikasi adalah bagian modular dari proyek yang memungkinkan pengembangan fitur secara terpisah. Saya menjalankan perintah `python manage.py startapp main` untuk membuat aplikasi `main`.
 
@@ -18,7 +34,7 @@ Setelah proyek berhasil dibuat, langkah berikutnya adalah menambahkan aplikasi b
 python manage.py startapp main
 ```
 
-### 3. Mengonfigurasi Routing untuk Aplikasi `main`
+#### 3. Mengonfigurasi Routing untuk Aplikasi `main`
 
 Selanjutnya, saya harus mengonfigurasi routing proyek untuk menyertakan aplikasi `main`. Dalam file `urls.py` proyek, saya menambahkan routing untuk aplikasi `main` dengan menggunakan fungsi `include` agar aplikasi dapat mengelola URL-nya sendiri. Kode yang saya tambahkan adalah sebagai berikut:
 
@@ -32,7 +48,7 @@ urlpatterns = [
 ]
 ```
 
-### 4. Membuat Model `Product` pada Aplikasi `main`
+#### 4. Membuat Model `Product` pada Aplikasi `main`
 
 Untuk menyimpan data produk, saya mendefinisikan sebuah model `Product` dalam file `models.py` aplikasi `main`. Model ini mencakup atribut-atribut seperti `name`, `price`, `description`, dan `stock`. Saya juga menambahkan `created_at` dan `updated_at` untuk melacak waktu pembuatan dan pembaruan. Berikut adalah kode model yang saya buat:
 
@@ -53,7 +69,7 @@ class Product(models.Model):
         return self.name
 ```
 
-### 5. Membuat Fungsi View di `views.py`
+#### 5. Membuat Fungsi View di `views.py`
 
 Saya kemudian membuat sebuah view dalam file `views.py` yang bertugas untuk merender template HTML. Fungsi `landing` ini akan menampilkan template yang menunjukkan nama aplikasi serta nama dan kelas. Berikut adalah kode untuk fungsi view tersebut:
 
@@ -64,7 +80,7 @@ def landing(request):
     return render(request, "landing/index.html")
 ```
 
-### 6. Menambahkan Routing di `urls.py` Aplikasi `main`
+#### 6. Menambahkan Routing di `urls.py` Aplikasi `main`
 
 Untuk memastikan bahwa view `landing` dapat diakses melalui URL tertentu, saya menambahkan routing di `urls.py` aplikasi `main`. Routing ini mengarahkan URL root ('') ke fungsi `landing`. Kode yang saya tambahkan adalah sebagai berikut:
 
@@ -77,15 +93,15 @@ urlpatterns = [
 ]
 ```
 
-### 7. Deployment melalui Platform Web Services (PWS)
+#### 7. Deployment melalui Platform Web Services (PWS)
 
 Terakhir, saya melakukan deployment aplikasi ke Platform Web Services (PWS). Prosesnya meliputi beberapa langkah:
 
-#### 7.1. Membuat Proyek Baru di PWS
+##### 7.1. Membuat Proyek Baru di PWS
 
 Saya memulai dengan mengklik "Create New Project" pada dashboard PWS dan mengisi kolom `Project Name` dengan nama `playbox`. Saya kemudian mengklik "Create New Project" untuk menyelesaikan proses pembuatan proyek.
 
-#### 7.2. Menambahkan URL pada `settings.py`
+##### 7.2. Menambahkan URL pada `settings.py`
 
 Dalam file `settings.py`, saya menambahkan URL deployment PWS ke dalam daftar `ALLOWED_HOSTS` untuk mengizinkan akses dari domain tersebut:
 
@@ -95,17 +111,17 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1", "muhammad-fazil31-playbox.pbp.cs.ui.a
 ...
 ```
 
-#### 7.3. Menjalankan Perintah Deployment
+##### 7.3. Menjalankan Perintah Deployment
 
 Saya menjalankan perintah yang tercantum pada bagian "Project Command" di halaman PWS. Saat melakukan push ke PWS, saya memasukkan username dan password yang diberikan oleh PWS.
 
-#### 7.4. Memantau Status Proyek dan Akses URL Deployment
+##### 7.4. Memantau Status Proyek dan Akses URL Deployment
 
 Di dashboard PWS, saya memantau status proyek yang saya buat. Jika statusnya "Building", berarti proyek masih dalam proses deployment. Jika statusnya "Running", berarti proyek telah berhasil dideploy dan dapat diakses melalui URL yang diberikan. Untuk melihat hasilnya, saya menekan tombol "View Project".
 
 ---
 
-## Bagan Request dan Respon Web Aplikasi Django
+### Bagan Request dan Respon Web Aplikasi Django
 
 Berikut adalah bagan sederhana yang menggambarkan alur request client ke web aplikasi berbasis Django beserta responnya serta hubungan antara `urls.py`, `views.py`, `models.py`, dan berkas HTML:
 
@@ -128,7 +144,7 @@ Client Request (e.g., GET /)
     Client Response (HTML)
 ```
 
-### Penjelasan Bagan:
+#### Penjelasan Bagan:
 
 1. **Client Request**: Client (misalnya, browser) mengirimkan request ke server, seperti permintaan untuk halaman utama ('/').
 
@@ -144,7 +160,7 @@ Client Request (e.g., GET /)
 
 ---
 
-## Fungsi Git dalam Pengembangan Perangkat Lunak
+### Fungsi Git dalam Pengembangan Perangkat Lunak
 
 Git adalah sistem kontrol versi yang sangat penting dalam pengembangan perangkat lunak. Git memungkinkan pengembang untuk melacak perubahan pada kode sumber seiring berjalannya waktu. Beberapa fungsi utama Git dalam pengembangan perangkat lunak adalah:
 
@@ -155,7 +171,7 @@ Git adalah sistem kontrol versi yang sangat penting dalam pengembangan perangkat
 
 ---
 
-## Mengapa Framework Django Dijadikan Permulaan Pembelajaran Pengembangan Perangkat Lunak?
+### Mengapa Framework Django Dijadikan Permulaan Pembelajaran Pengembangan Perangkat Lunak?
 
 Django sering dipilih sebagai framework pemula dalam pembelajaran pengembangan perangkat lunak karena beberapa alasan:
 
@@ -166,6 +182,6 @@ Django sering dipilih sebagai framework pemula dalam pembelajaran pengembangan p
 
 ---
 
-## Mengapa Model pada Django Disebut sebagai ORM?
+### Mengapa Model pada Django Disebut sebagai ORM?
 
 Model dalam Django disebut sebagai ORM (Object-Relational Mapping) karena Django menggunakan pendekatan ORM untuk memetakan objek Python ke tabel-tabel dalam database relasional. Dengan ORM, saya dapat menggunakan kode Python untuk berinteraksi dengan database tanpa menulis SQL secara langsung. ORM memudahkan operasi database seperti penyimpanan, pengambilan, pembaruan, dan penghapusan data melalui objek Python, sehingga meningkatkan produktivitas dan meminimalkan kemungkinan kesalahan.
