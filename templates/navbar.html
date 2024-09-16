@@ -1,5 +1,5 @@
 <header class="shadow-md z-50 fixed top-0 w-full bg-white flex gap-5 justify-between px-3 md:px-8 py-4">
-    <a href="">
+    <a href="{% url 'main:landing' %}">
         <img src="https://i.imgur.com/H96oWJw.png" class="max-w-28 md:max-w-36">
     </a>
     <nav class="flex items-center justify-around gap-6 font-semibold max-xl:hidden">
@@ -23,12 +23,12 @@
             <div class="w-full h-[64%] bg-neutral-200"></div>
         </div>
         <div class="flex gap-3">
-            <a href=""
-                class="flex items-center border-2 border-blue-700 hover:border-blue-500 text-blue-700 hover:text-blue-500 transition duration-300 rounded-xl px-3 md:px-4 font-semibold ">Sign
-                in</a>
-            <a href=""
-                class="flex items-center bg-red-600 hover:bg-red-500 transition duration-300 rounded-xl px-3 md:px-4 font-semibold text-white">Sign
-                up</a>
+            <a href="{% url 'main:create' %}"
+                class="flex items-center border-2 border-blue-700 hover:border-blue-500 text-blue-700 hover:text-blue-500 transition duration-300 rounded-xl px-3 md:px-4 font-bold">Create
+                Product</a>
+            <!-- <a href=""
+                class="flex items-center bg-red-600 hover:bg-red-500 transition duration-300 rounded-xl px-3 md:px-4 font-bold text-white">Sign
+                up</a> -->
         </div>
     </div>
 </header>
