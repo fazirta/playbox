@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block content %}
+<main class="max-w-7xl mx-auto mt-6 md:mt-12 px-3">
+    <div class="flex max-lg:flex-col gap-6">
+        <div class="w-full flex flex-col gap-1 md:gap-3 justify-center items-center">
+            <h1 class="font-bold text-2xl lg:text-3xl text-center">Create New Product</h1>
+            <h2 class="font-semibold text-sm lg:text-lg text-center">Fill in the details to add a new product to the
+                inventory</h2>
+            <img src="https://i.imgur.com/EsjcAnh.png" class="max-w-72 mt-6 max-lg:hidden">
+        </div>
+        <form method="POST"
+            class="w-full max-w-md md:max-w-2xl mx-auto p-5 md:p-8 bg-slate-200 rounded-2xl flex flex-col gap-5">
+            {% csrf_token %}
+            <div class="flex flex-col gap-2">
+                <label class="text-neutral-600 font-bold">
+                    {{ form.name.label }}
+                </label>
+                {{ form.name }}
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="text-neutral-600 font-bold">
+                    {{ form.price.label }}
+                </label>
+                {{ form.price }}
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="text-neutral-600 font-bold">
+                    {{ form.description.label }}
+                </label>
+                {{ form.description }}
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="text-neutral-600 font-bold">
+                    {{ form.stock.label }}
+                </label>
+                {{ form.stock }}
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="text-neutral-600 font-bold">
+                    {{ form.image.label }}
+                </label>
+                {{ form.image }}
+            </div>
+            <button
+                class="shadow bg-sky-700 hover:bg-sky-800 transition focus:shadow-outline focus:outline-none text-white font-bold py-2.5 px-3 md:px-4 rounded-xl"
+                type="submit">
+                Create
+            </button>
+        </form>
+    </div>
+</main>
+{% endblock %}
+{% block script %}
+<script>
+    const formFields = document.getElementsByTagName('input');
+    const placeholders = [
+        '',
+        '',
+        'Rexus Bluetooth Gamepad Gladius GX300',
+        '409000',
+        '887',
+        'https://i.imgur.com/pLaYbOx.png'
+    ];
+    for (let i = 2; i < placeholders.length; i++) {
+        if (formFields[i]) {
+            formFields[i].placeholder = placeholders[i];
+        }
+    }
+    const commonStyles = 'flex h-10 w-full rounded-[12px] border-2 border-slate-500/50 bg-transparent px-5 py-3 text-sm focus-visible:outline-none focus-visible:border-slate-500';
+    for (let i = 1; i < formFields.length; i++) {
+        formFields[i].classList.add(...commonStyles.split(' '));
+    }
+    const classes = [
+        'flex',
+        'w-full',
+        'rounded-[12px]',
+        'border-2',
+        'border-slate-500/50',
+        'bg-transparent',
+        'px-5',
+        'py-3',
+        'text-sm',
+        'focus-visible:outline-none',
+        'focus-visible:border-slate-500'
+    ];
+    const textarea = document.querySelector('textarea');
+    textarea.placeholder = 'This ergonomic gamepad features a textured grip for non-slip play, a 3.5mm TRRS port for microphones and headsets, a touchpad, hall magnetic trigger sensors, and a six-axis sensor. It has a 600 mAh battery rechargeable via a Type-C to USB cable.';
+    textarea.rows = 3;
+    textarea.classList.add(...classes);
+</script>
+{% endblock %}
