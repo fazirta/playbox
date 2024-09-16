@@ -1,130 +1,36 @@
-{% load humanize %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="PlayBox is your go-to online store for top-quality gaming peripherals and accessories. Explore our wide range of products including mice, mousepads, keyboards, headsets, chairs, monitors, and controllers.">
-    <title>PlayBox - Your Ultimate Gaming Gear Store</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://kit.fontawesome.com/7be97235d1.js" crossorigin="anonymous"></script>
-</head>
-
-<body class="text-xs md:text-sm pt-16">
-    <header class="shadow-md z-50 fixed top-0 w-full bg-white flex gap-5 justify-between px-3 md:px-8 py-4">
-        <a href="">
-            <img src="https://i.imgur.com/H96oWJw.png" class="max-w-28 md:max-w-36">
-        </a>
-        <nav class="flex items-center justify-around gap-6 font-semibold max-xl:hidden">
-            <a href="" class="hover:text-neutral-600 transition">Mice</a>
-            <a href="" class="hover:text-neutral-600 transition">Mousepads</a>
-            <a href="" class="hover:text-neutral-600 transition">Keyboards</a>
-            <a href="" class="hover:text-neutral-600 transition">Headsets</a>
-            <a href="" class="hover:text-neutral-600 transition">Chairs</a>
-            <a href="" class="hover:text-neutral-600 transition">Monitors</a>
-            <a href="" class="hover:text-neutral-600 transition">Controllers</a>
-        </nav>
-        <div class="flex gap-5">
-            <form class="flex justify-center items-center max-md:hidden">
-                <button type="submit" class="px-4 py-2 rounded-l-xl bg-neutral-100">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-                <input class="focus:outline-none rounded-r-xl font-semibold bg-neutral-100 pr-4 py-2"
-                    placeholder="Search" type="text">
-            </form>
-            <div class="w-0.5 min-h-full flex items-center max-md:hidden">
-                <div class="w-full h-[64%] bg-neutral-200"></div>
-            </div>
-            <div class="flex gap-3">
-                <a href=""
-                    class="flex items-center border-2 border-blue-700 hover:border-blue-500 text-blue-700 hover:text-blue-500 transition duration-300 rounded-xl px-3 md:px-4 font-semibold ">Sign
-                    in</a>
-                <a href=""
-                    class="flex items-center bg-red-600 hover:bg-red-500 transition duration-300 rounded-xl px-3 md:px-4 font-semibold text-white">Sign
-                    up</a>
-            </div>
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}
+<link rel="stylesheet" href="{% static 'landing/carousel.css' %}">
+{% endblock meta %}
+{% block content %}
+<main class="max-w-6xl mx-auto mt-6 px-3">
+    <div class="carousel-container">
+        <div class="carousel" style="transform: translateX(0%);">
+            <div class="carousel-item"><img src="https://i.imgur.com/WzcxPwC.jpeg" alt="PlayBox"></div>
+            <div class="carousel-item"><img src="https://i.imgur.com/7J4ONVt.jpeg" alt="PlayBox"></div>
+            <div class="carousel-item"><img src="https://i.imgur.com/unbbzBy.jpeg" alt="PlayBox"></div>
+            <div class="carousel-item"><img src="https://i.imgur.com/oamJ67y.jpeg" alt="PlayBox"></div>
         </div>
-    </header>
-    <main class="max-w-6xl mx-auto mt-6 px-3">
-        <div class="flex justify-center">
-            <img src="https://i.imgur.com/WzcxPwC.jpeg" class="rounded-2xl max-h-80 w-full object-cover ">
+        <div class="absolute top-[40%] md:top-[45%] w-full flex justify-between">
+            <button id="prev"
+                class="max-md:text-xs ml-2 md:ml-3 px-2.5 py-1.5 md:px-4 md:py-2.5 rounded-full bg-neutral-800/50 hover:bg-neutral-800/80 transition duration-300 text-white"><i
+                    class="fa-solid fa-chevron-left"></i></button>
+            <button id="next"
+                class="max-md:text-xs mr-2 md:mr-3 px-2.5 py-1.5 md:px-4 md:py-2.5 rounded-full bg-neutral-800/50 hover:bg-neutral-800/80 transition duration-300 text-white"><i
+                    class="fa-solid fa-chevron-right"></i></button>
         </div>
-        <div class="mt-8 py-2 rounded-2xl">
-            <h1 class="font-bold text-xl md:text-2xl">Most popular</h1>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 mt-4">
-                {% for product in products %}
-                <div class="mx-auto rounded-xl shadow hover:shadow-lg max-w-52 transition duration-300">
-                    <a href="">
-                        <img src="{{ product.image }}" class="w-full rounded-t-xl">
-                        <div class="px-3 py-2 flex flex-col gap-2">
-                            <h1 class="font-semibold">{{ product.name }}</h1>
-                            <h2 class="font-bold text-sm md:text-lg">Rp{{ product.price|intcomma }}</h2>
-                        </div>
-                    </a>
-                </div>
-                {% endfor %}
-            </div>
+    </div>
+    <div class="mt-8 py-2 rounded-2xl">
+        <h1 class="font-bold text-xl md:text-2xl">Most popular</h1>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 mt-4">
+            {% for product in products %}
+            {% include 'landing/product.html' %}
+            {% endfor %}
         </div>
-    </main>
-    <footer class="py-10 mt-10 border-t px-3">
-        <div class="max-w-6xl mx-auto">
-            <div class="flex justify-between">
-                <div>
-                    <a href="">
-                        <img src="https://i.imgur.com/H96oWJw.png" class="max-w-28 md:max-w-36">
-                    </a>
-                    <nav class="mt-8 flex flex-wrap items-center justify-start gap-x-5 gap-y-1 font-semibold max-w-80">
-                        <a href="" class="hover:text-neutral-600 transition">Mice</a>
-                        <a href="" class="hover:text-neutral-600 transition">Mousepads</a>
-                        <a href="" class="hover:text-neutral-600 transition">Keyboards</a>
-                        <a href="" class="hover:text-neutral-600 transition">Headsets</a>
-                        <a href="" class="hover:text-neutral-600 transition">Chairs</a>
-                        <a href="" class="hover:text-neutral-600 transition">Monitors</a>
-                        <a href="" class="hover:text-neutral-600 transition">Controllers</a>
-                    </nav>
-                </div>
-                <div class="flex gap-5 text-base md:text-xl">
-                    <a href="">
-                        <i class="fa-brands fa-facebook"></i>
-                    </a>
-                    <a href="">
-                        <i class="fa-brands fa-instagram"></i>
-                    </a>
-                    <a href="">
-                        <i class="fa-brands fa-line"></i>
-                    </a>
-                    <a href="">
-                        <i class="fa-brands fa-twitter"></i>
-                    </a>
-                    <a href="">
-                        <i class="fa-brands fa-youtube"></i>
-                    </a>
-                </div>
-            </div>
-            <div
-                class="w-full border-t mt-8 pt-3 font-semibold flex max-md:flex-col gap-3 justify-between items-center">
-                <h1 class="text-sm md:text-lg font-bold text-blue-900"> Tugas <a
-                        href="https://pbp-fasilkom-ui.github.io/ganjil-2025"
-                        class="text-red-600 hover:underline">PBP</a> Gasal 2024/2025 </h1>
-                <div class="flex flex-wrap justify-center gap-x-4 md:gap-x-8 gap-y-2">
-                    <div class="flex gap-2 text-blue-900">
-                        <i class="fa-regular fa-user text-xs pt-0.5"></i>
-                        {{ name }}
-                    </div>
-                    <div class="flex gap-2 text-red-600">
-                        <i class="fa-regular fa-address-card text-xs pt-0.5"></i>
-                        {{ npm }}
-                    </div>
-                    <div class="flex gap-2 text-red-600">
-                        <i class="fa-regular fa-note-sticky text-xs pt-0.5"></i>
-                        {{ class }}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-</body>
-
-</html>
+    </div>
+</main>
+{% endblock content %}
+{% block script %}
+<script type="text/javascript" src="{% static 'landing/carousel.js' %}"></script>
+{% endblock script %}

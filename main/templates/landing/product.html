@@ -1,0 +1,10 @@
+{% load humanize %}
+<div class="mx-auto rounded-xl shadow hover:shadow-lg max-w-52 transition duration-300">
+    <a href="">
+        <img src="{{ product.image }}" class="w-full rounded-t-xl">
+        <div class="px-3 py-2 flex flex-col gap-2">
+            <h1 class="font-semibold">{{ product.name }}</h1>
+            <h2 class="font-bold text-sm md:text-lg">Rp{{ product.price|intcomma }}</h2>
+        </div>
+    </a>
+</div>

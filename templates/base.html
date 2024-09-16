@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="PlayBox is your go-to online store for top-quality gaming peripherals and accessories. Explore our wide range of products including mice, mousepads, keyboards, headsets, chairs, monitors, and controllers.">
+    <title>PlayBox - Your Ultimate Gaming Gear Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/7be97235d1.js" crossorigin="anonymous"></script>
+    {% block meta %} {% endblock meta %}
+</head>
+
+<body class="text-xs md:text-sm pt-16">
+    {% include 'navbar.html' %}
+    {% block content %} {% endblock content %}
+    {% include 'footer.html' %}
+    {% block script %} {% endblock script %}
+</body>
+
+</html>
