@@ -17,11 +17,13 @@ def landing(request):
 
 
 def create(request):
-    form = ProductForm(request.POST or None)
+    form = ProductForm()
 
-    if form.is_valid() and request.method == "POST":
-        form.save()
-        return redirect("main:landing")
+    if request.method == "POST":
+        form = ProductForm(request.POST, request.FILES) 
+        if form.is_valid():
+            form.save()
+            return redirect('main:landing')
 
     context = {
         "npm": "2306274983",
