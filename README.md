@@ -185,3 +185,65 @@ Django sering dipilih sebagai framework pemula dalam pembelajaran pengembangan p
 ### Mengapa Model pada Django Disebut sebagai ORM?
 
 Model dalam Django disebut sebagai ORM (Object-Relational Mapping) karena Django menggunakan pendekatan ORM untuk memetakan objek Python ke tabel-tabel dalam database relasional. Dengan ORM, saya dapat menggunakan kode Python untuk berinteraksi dengan database tanpa menulis SQL secara langsung. ORM memudahkan operasi database seperti penyimpanan, pengambilan, pembaruan, dan penghapusan data melalui objek Python, sehingga meningkatkan produktivitas dan meminimalkan kemungkinan kesalahan.
+
+---
+
+## Tugas 3 PBP Gasal 2024/2025
+
+### Pentingnya Data Delivery dalam Platform
+
+**Data delivery** adalah proses menyampaikan data dari server ke client. Ini penting karena:
+
+- **Interaksi Dinamis**: Aplikasi sering membutuhkan data terbaru yang dapat dikirim secara real-time atau sesuai permintaan dari client.
+- **Efisiensi dan Responsivitas**: Data delivery memastikan bahwa client mendapatkan data yang relevan dan terkini dengan cara yang efisien.
+- **Pengalaman Pengguna**: Pengalaman pengguna menjadi lebih baik ketika data dapat disampaikan dengan cepat dan akurat.
+
+### XML vs JSON
+
+**XML** dan **JSON** adalah format untuk pertukaran data. JSON lebih populer dibandingkan XML karena:
+
+- **Sintaks yang lebih sederhana**: JSON lebih ringkas dan mudah dibaca daripada XML.
+- **Ukuran yang lebih kecil**: JSON biasanya menghasilkan file yang lebih kecil karena tidak memerlukan tag penutup seperti XML.
+- **Penggunaan yang luas dalam web dan API**: JSON lebih mudah diintegrasikan dengan JavaScript dan banyak API modern menggunakan JSON karena kemudahan penggunaannya.
+
+### Fungsi `is_valid()` pada Form Django
+
+**`is_valid()`** adalah metode pada form Django yang digunakan untuk memeriksa apakah data yang dikirimkan memenuhi semua validasi yang ditentukan dalam form. 
+
+- **Fungsi**: Mengembalikan `True` jika data form valid dan `False` jika tidak. Ini memeriksa validitas data berdasarkan aturan yang didefinisikan dalam form.
+- **Kebutuhan**: Memastikan bahwa data yang diproses aman dan sesuai dengan harapan sebelum disimpan atau diproses lebih lanjut.
+
+### CSRF Token di Django
+
+**CSRF Token** adalah mekanisme untuk melindungi aplikasi web dari serangan Cross-Site Request Forgery (CSRF). 
+
+- **Kebutuhan**: Token CSRF diperlukan untuk memastikan bahwa permintaan yang dikirimkan ke server berasal dari pengguna yang sah.
+- **Tanpa Token**: Jika tidak ada token CSRF, penyerang dapat membuat permintaan berbahaya menggunakan kredensial pengguna yang sah.
+- **Potensi Risiko**: Penyerang dapat memanfaatkan kurangnya perlindungan CSRF untuk melakukan tindakan tidak sah seperti mengubah data pengguna atau mengirimkan permintaan yang merugikan.
+
+### Implementasi Checklist Secara Step-by-Step
+
+#### 1. Membuat input form untuk menambahkan objek model pada app sebelumnya
+
+Pertama, saya membuat berkas `forms.py` dengan kode yang mendefinisikan struktur form untuk Product, lalu menambahkan kode pada `views.py` untuk menangani form tersebut, serta memperbarui fungsi `show_main` untuk menampilkan seluruh Product. Saya juga mengupdate `urls.py` untuk menambahkan path ke fungsi `create`, membuat berkas HTML `create/index.html` untuk form input, dan menyesuaikan `main.html` agar menampilkan data product dalam tabel serta menambahkan tombol untuk mengakses form input.
+
+#### 2. Tambahkan 4 fungsi views baru untuk melihat objek yang sudah ditambahkan dalam format XML, JSON, XML by ID, dan JSON by ID
+
+Saya mengembalikan data dalam bentuk XML dan JSON dengan beberapa langkah. Pertama, saya membuka `views.py` dan menambahkan import `HttpResponse` dan `serializers`. Saya membuat fungsi `show_xml` untuk mengembalikan seluruh data MoodEntry dalam format XML dan fungsi `show_json` untuk mengembalikan data yang sama dalam format JSON. Setelah itu, saya memperbarui `urls.py` untuk menambahkan path URL yang sesuai. Selanjutnya, saya membuat fungsi `show_xml_by_id` dan `show_json_by_id` untuk mengembalikan data MoodEntry berdasarkan ID dalam format XML dan JSON, kemudian menambahkan path URL untuk kedua fungsi ini di `urls.py`.
+
+#### 3. Membuat routing URL untuk masing-masing views yang telah ditambahkan pada poin 2
+
+Saya menambahkan path URL ke dalam urlpatterns di berkas urls.py untuk menghubungkan URL yang sesuai dengan fungsi view yang telah dibuat. Saya menambahkan path `"xml/"` untuk format XML dan `"json/"` untuk format JSON. Untuk data berdasarkan ID, saya menambahkan path `"xml/<str:id>/"` dan `"json/<str:id>/"`.
+
+Berikut adalah pengaturan urlpatterns yang saya buat:
+
+```python
+urlpatterns = [
+    ...
+    path("xml/", show_xml, name="show_xml"),
+    path("json/", show_json, name="show_json"),
+    path("xml/<str:id>/", show_xml_by_id, name="show_xml_by_id"),
+    path("json/<str:id>/", show_json_by_id, name="show_json_by_id"),
+    ...
+]
+```
