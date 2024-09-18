@@ -247,3 +247,16 @@ urlpatterns = [
     ...
 ]
 ```
+
+### Mengakses URL dengan Postman
+**XML**
+![image](https://github.com/user-attachments/assets/c09ca1e5-db92-46b6-ae97-1d584f807860)
+
+**JSON**
+![image](https://github.com/user-attachments/assets/4eac9827-7ab0-4e6f-82e9-4ce82cb3c3a9)
+
+**XML by ID**
+![Screenshot (13)](https://github.com/user-attachments/assets/5304e958-ea84-4a4b-a5c4-a642f332ae28)
+
+**JSON by ID**
+![Screenshot (14)](https://github.com/user-attachments/assets/3a3ea9c4-e303-4d48-aead-3a32d27a689f)
