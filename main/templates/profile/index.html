@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<main class="max-w-7xl mx-auto mt-6 px-3">
+    <div class="w-full flex max-sm:justify-center gap-4 sm:gap-6 p-3 sm:p-5 rounded-2xl border mx-auto">
+        <div class="flex items-center">
+            <div class="w-min rounded-full px-4 py-3 sm:px-6 sm:py-5 border-4 border-blue-900">
+                <i
+                    class="fa-solid fa-user text-3xl sm:text-5xl bg-gradient-to-r from-blue-900 to-red-900 inline-block text-transparent bg-clip-text"></i>
+            </div>
+        </div>
+        <div class="flex flex-col">
+            <h1 class="text-2xl font-semibold mt-3.5">{{ request.user.username }}</h1>
+            <h2 class="text-xs font-semibold text-neutral-500 text-center mt-1">
+                Last login: {{ request.user.last_login }}
+            </h2>
+            <a href="{% url 'main:signout' %}"
+                class="mt-4 w-full py-2 bg-red-500 rounded-xl font-semibold text-white text-center hover:shadow hover:bg-red-600 transition duration-300">Sign
+                out</a>
+        </div>
+    </div>
+    <div class="mt-8 py-2 rounded-2xl">
+        <h1 class="font-bold text-xl md:text-2xl">Your Products</h1>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-5 mt-4">
+            {% for product in products %} {% include 'profile/product.html' %} {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock content %}

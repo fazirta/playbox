@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 import uuid
 
@@ -9,3 +10,4 @@ class Product(models.Model):
     description = models.TextField()
     stock = models.PositiveIntegerField()
     image = models.ImageField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
