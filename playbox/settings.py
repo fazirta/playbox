@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-rtszg1xv0ern2(chdammhp42s0jg#tjfeko=s=c*q6##%mhe=9'
+SECRET_KEY = 'django-insecure-5x_@x=c+hh)!*&!-d9a*f$jjk!1w#tp25x!yez6tczmq06v-1i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 PRODUCTION = os.getenv("PRODUCTION", False)
@@ -133,5 +133,3 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost","http://127.0.0.1","http://muhammad-fazil31-playbox.pbp.cs.ui.ac.id", "https://muhammad-fazil31-playbox.pbp.cs.ui.ac.id"]
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

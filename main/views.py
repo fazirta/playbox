@@ -7,23 +7,18 @@ from django.core import serializers
 
 def landing(request):
     products = Product.objects.all()
-
     context = {"products": products}
-
     return render(request, "landing/index.html", context)
 
 
 def create(request):
     form = ProductForm()
-
     if request.method == "POST":
-        form = ProductForm(request.POST, request.FILES) 
+        form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('main:landing')
-
+            return redirect("main:landing")
     context = {"form": form}
-
     return render(request, "create/index.html", context)
 
 
