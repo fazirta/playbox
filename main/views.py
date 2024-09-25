@@ -27,7 +27,6 @@ def create(request):
     return render(request, "create/index.html", {"form": form})
 
 
-@login_required(login_url="/signin")
 def show_xml(request):
     data = Product.objects.all()
     return HttpResponse(
@@ -35,7 +34,6 @@ def show_xml(request):
     )
 
 
-@login_required(login_url="/signin")
 def show_json(request):
     data = Product.objects.all()
     return HttpResponse(
@@ -43,7 +41,6 @@ def show_json(request):
     )
 
 
-@login_required(login_url="/signin")
 def show_xml_by_id(request, id):
     data = Product.objects.filter(pk=id)
     return HttpResponse(
@@ -51,7 +48,6 @@ def show_xml_by_id(request, id):
     )
 
 
-@login_required(login_url="/signin")
 def show_json_by_id(request, id):
     data = Product.objects.filter(pk=id)
     return HttpResponse(
