@@ -260,3 +260,54 @@ urlpatterns = [
 
 **JSON by ID**
 ![Screenshot (14)](https://github.com/user-attachments/assets/3a3ea9c4-e303-4d48-aead-3a32d27a689f)
+
+---
+
+## Tugas 4 PBP Gasal 2024/2025
+
+### Apa perbedaan antara HttpResponseRedirect() dan redirect()?
+
+`HttpResponseRedirect()` adalah kelas untuk membuat respon HTTP yang mengarahkan ke URL lain, sedangkan `redirect()` adalah shortcut yang menyederhanakan penggunaan `HttpResponseRedirect()` dan dapat menerima URL atau model instance.
+
+### Jelaskan cara kerja penghubungan model Product dengan User!
+
+Model Product memiliki field ForeignKey yang menunjuk ke model User, sehingga setiap produk terkait dengan pengguna tertentu. Ini memungkinkan kita untuk mengaitkan setiap produk dengan pemiliknya.
+
+### Apa perbedaan antara authentication dan authorization, apakah yang dilakukan saat pengguna login?
+
+Authentication adalah proses verifikasi identitas pengguna (login), sedangkan authorization menentukan hak akses pengguna tersebut. Saat pengguna login, sistem melakukan authentication dengan memeriksa kredensialnya. Django mengimplementasikan ini melalui sistem autentikasi built-in.
+
+### Bagaimana Django mengingat pengguna yang telah login?
+
+Django menggunakan session untuk menyimpan informasi tentang pengguna yang login, dan secara otomatis mengatur cookie untuk menjaga session tersebut. Kegunaan lain dari cookies termasuk menyimpan preferensi pengguna dan informasi terakhir login. Tidak semua cookies aman; cookie harus disimpan dengan aman dan tidak boleh mengandung informasi sensitif.
+
+### Implementasi Checklist Secara Step-by-Step
+
+#### 1. Mengimplementasikan registrasi, login, dan logout agar pengguna dapat mengakses aplikasi
+
+Saya mulai dengan mengaktifkan virtual environment, kemudian menambahkan import di `views.py` untuk `UserCreationForm`, `AuthenticationForm`, dan fungsi login/logout. Selanjutnya, saya membuat fungsi `register` untuk menangani pendaftaran pengguna, membuat berkas `register.html`, dan memperbarui `urls.py`. Setelah itu, saya menambahkan fungsi `login_user` dan membuat **`login.html`** serta memperbarui `urls.py` untuk login. Terakhir, saya menambahkan fungsi `logout_user`, membuat tombol logout di **`main.html`**, dan memperbarui `urls.py` untuk logout.
+
+#### 2. Membuat dua akun pengguna dengan tiga data dummy per akun
+
+Untuk membuat akun, saya hanya perlu melakukan registrasi dua kali dengan informasi pengguna yang berbeda. Setelah itu, untuk membuat dummy data, saya login dengan akun yang diinginkan. Setelah berhasil masuk, saya dapat menambahkan dummy data baru melalui form yang sudah dibuat pada Tugas 3 sebelumnya.
+
+**Pengguna 1 (peokra)**
+![peokra](https://github.com/user-attachments/assets/ff68b75d-1a8e-4e66-b098-3d63f3e6d1f8)
+
+**Pengguna 2 (pakbepe)**
+![pakbepe](https://github.com/user-attachments/assets/20ef2db9-52bb-4754-ae41-1f9e2e1f23c7)
+
+#### 3. Menghubungkan model `Product` dengan `User`
+
+Saya menambahkan atribut user pada model Product, yang merupakan *ForeignKey* yang merujuk pada model User. Dengan cara ini, setiap produk akan terkait langsung dengan pengguna tertentu. Saya menggunakan parameter on_delete=models.CASCADE untuk memastikan bahwa jika seorang pengguna dihapus, semua produk yang mereka buat juga akan dihapus secara otomatis. Ini menjaga database saya tetap bersih dan teratur.
+
+Berikut adalah implementasi lengkap dari model `Product`:
+
+```python
+class Product(models.Model):
+    ...
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+```
+
+#### 4. Menampilkan username pengguna yang logged in dan cookies last login
+Pertama, saya mengedit `views.py` dengan menambahkan import yang diperlukan. Dalam fungsi `signin`, saya mengubah kode agar menambahkan cookie "last_login" dengan waktu saat pengguna login. Di fungsi `landing`, saya menambahkan informasi cookie ke dalam konteks. Kode `request.user.username` saya gunakan untuk menampilkan username pengguna di halaman utama. Saya juga menambahkan informasi cookie ke dalam *context*. Selain itu, saya mengubah fungsi `logout` untuk menghapus cookie saat logout. Terakhir, saya memperbarui `profile/index.html` untuk menampilkan sesi terakhir login.
