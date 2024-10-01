@@ -27,6 +27,24 @@ def create(request):
     return render(request, "create/index.html", {"form": form})
 
 
+@login_required(login_url="/signin")
+def edit(request, id):
+    product = Product.objects.get(pk=id)
+    form = ProductForm(request.POST or None, request.FILES, instance=product)
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse("main:profile"))
+    context = {"form": form}
+    return render(request, "edit/index.html", context)
+
+
+@login_required(login_url="/signin")
+def delete(request, id):
+    product = Product.objects.get(pk=id)
+    product.delete()
+    return HttpResponseRedirect(reverse("main:profile"))
+
+
 def show_xml(request):
     data = Product.objects.all()
     return HttpResponse(

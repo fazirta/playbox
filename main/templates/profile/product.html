@@ -7,4 +7,16 @@
             <h2 class="font-bold text-sm md:text-lg">Rp{{ product.price|intcomma }}</h2>
         </div>
     </a>
+    <div class="px-3 py-2 flex flex-col gap-2">
+        <a href="{% url 'main:edit' product.id %}"
+            class="w-full py-2 bg-blue-500 rounded-xl font-semibold text-white text-center hover:shadow hover:bg-blue-600 transition duration-300">
+            <i class="fa-solid fa-pencil mr-2"></i>
+            Edit
+        </a>
+        <a href="{% url 'main:delete' product.id %}"
+            class="w-full py-2 bg-red-500 rounded-xl font-semibold text-white text-center hover:shadow hover:bg-red-600 transition duration-300">
+            <i class="fa-solid fa-trash mr-2"></i>
+            Delete
+        </a>
+    </div>
 </div>
