@@ -311,3 +311,107 @@ class Product(models.Model):
 
 #### 4. Menampilkan username pengguna yang logged in dan cookies last login
 Pertama, saya mengedit `views.py` dengan menambahkan import yang diperlukan. Dalam fungsi `signin`, saya mengubah kode agar menambahkan cookie "last_login" dengan waktu saat pengguna login. Di fungsi `landing`, saya menambahkan informasi cookie ke dalam konteks. Kode `request.user.username` saya gunakan untuk menampilkan username pengguna di halaman utama. Saya juga menambahkan informasi cookie ke dalam *context*. Selain itu, saya mengubah fungsi `logout` untuk menghapus cookie saat logout. Terakhir, saya memperbarui `profile/index.html` untuk menampilkan sesi terakhir login.
+
+---
+
+## Tugas 5 PBP Gasal 2024/2025
+
+### Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+
+Prioritas pengambilan CSS selector mengikuti aturan sebagai berikut: **inline styles** memiliki prioritas tertinggi (misalnya `style="color: blue;"`), diikuti oleh **ID selector** (`#id`), yang lebih kuat dibandingkan **class selector**, attribute selector, dan pseudo-class. Di bawahnya, **elemen (tag)** memiliki prioritas terendah. Namun, penggunaan **!important** dapat mengabaikan prioritas selektor dan akan diutamakan.
+
+### Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!
+
+Responsive design penting karena memastikan bahwa aplikasi web dapat diakses dengan nyaman di berbagai perangkat (desktop, tablet, dan ponsel). Contoh aplikasi yang menerapkan responsive design adalah Google dan Twitter. Aplikasi yang tidak menerapkan responsive design mungkin memiliki tampilan yang tidak optimal pada perangkat tertentu, seperti aplikasi lama yang hanya didesain untuk desktop.
+
+### Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+
+   - **Margin**: Ruang di luar elemen, antara elemen dengan elemen lain.
+   - **Border**: Garis yang mengelilingi elemen, antara padding dan margin.
+   - **Padding**: Ruang di dalam elemen, antara konten dan border.
+   
+   Ketiganya dapat diatur menggunakan CSS dengan sintaks seperti:
+   ```css
+   margin: 10px;
+   border: 1px solid black;
+   padding: 5px;
+   ```
+
+### Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+
+   - **Flexbox**: Layout one-dimensional yang digunakan untuk mengatur elemen dalam satu baris atau kolom. Flexbox berguna untuk membuat layout yang fleksibel dan responsif dengan elemen-elemen yang dapat beradaptasi terhadap ukuran kontainer.
+   - **Grid Layout**: Layout two-dimensional yang memungkinkan kita untuk membuat struktur grid yang lebih kompleks, baik dalam baris maupun kolom, yang cocok untuk membuat desain yang lebih kompleks dan presisi tinggi.
+
+   Flexbox cocok untuk layout yang sederhana dan linier, sedangkan Grid lebih tepat untuk layout yang kompleks dan berbasis grid.
+
+### Implementasi Checklist Secara Step-by-Step
+
+#### 1. Implementasikan fungsi untuk menghapus dan mengedit product
+
+Untuk menambahkan fitur edit dan hapus produk dalam aplikasi, pertama-tama saya membuka file `views.py` dan membuat dua fungsi `edit` dan `delete` seperti berikut:
+
+```python
+@login_required(login_url="/signin")
+def edit(request, id):
+    product = Product.objects.get(pk=id)
+    form = ProductForm(request.POST or None, request.FILES, instance=product)
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse("main:profile"))
+    context = {"form": form}
+    return render(request, "edit/index.html", context)
+
+@login_required(login_url="/signin")
+def delete(request, id):
+    product = Product.objects.get(pk=id)
+    product.delete()
+    return HttpResponseRedirect(reverse("main:profile"))
+```
+
+Fungsi `edit` mengambil entri mood berdasarkan ID, menginisialisasi form, dan menyimpan perubahan jika valid sebelum mengarahkan ke halaman utama. Fungsi `delete` mengambil dan menghapus entri mood berdasarkan ID, lalu kembali ke halaman utama. Saya menambahkan URL di `urls.py` untuk kedua fungsi dengan path `edit/<uuid:id>` dan `delete/<uuid:id>`, serta tombol "Edit" dan "Delete" di template untuk setiap produk.
+
+#### 2. Kustomisasi desain pada template HTML yang telah dibuat pada tugas-tugas sebelumnya menggunakan CSS
+
+Saya memulai proses kustomisasi desain pada aplikasi Django saya dengan menggunakan Tailwind CSS. Untuk menghubungkan template Django saya dengan Tailwind CSS, saya memanfaatkan script CDN dari Tailwind. Saya menambahkan script berikut di dalam tag `<head>` di file **base.html**:
+
+```html
+<head>
+    {% block meta %}
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% endblock meta %}
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+```
+
+Dengan menambahkan script ini, saya dapat menggunakan kelas-kelas Tailwind CSS di seluruh halaman web saya.
+
+#### 3. Kustomisasi halaman login, register, dan tambah product semenarik mungkin
+
+**Halaman Login**
+![login](https://github.com/user-attachments/assets/a23b0fb9-ccd1-48b1-bb08-2b1e17146d1c)
+
+**Halaman Register**
+![register](https://github.com/user-attachments/assets/3a164522-1965-41e2-bd85-810bf74bcbf6)
+
+**Halaman Tambah Product**
+![add-product](https://github.com/user-attachments/assets/b334560b-7d45-4b2c-a9fe-767ed2ffc333)
+
+#### 4. Kustomisasi halaman daftar product menjadi lebih menarik dan responsive
+
+![product](https://github.com/user-attachments/assets/d3ebca6d-b3d7-4eb4-b1c8-3b907b84192a)
+
+#### 5. Untuk setiap card product, buatlah dua buah button untuk mengedit dan menghapus product pada card tersebut!
+
+![card](https://github.com/user-attachments/assets/1a09b7d7-2a1f-479c-9ca0-8052fc9b5d8e)
+
+#### 6. Buatlah navigation bar (navbar) untuk fitur-fitur pada aplikasi yang responsive terhadap perbedaan ukuran device, khususnya mobile dan desktop.
+
+**Mobile**
+![navbar-mobile](https://github.com/user-attachments/assets/01ce61f2-41c7-4a79-993e-1b9d42fc24b6)
+
+**Tablet**
+![navbar-tablet](https://github.com/user-attachments/assets/8bf92a9e-22ec-4c4e-8019-0b382889ffe0)
+
+**Desktop**
+![navbar-desktop](https://github.com/user-attachments/assets/63073d93-012b-477b-a289-e62e85c18c45)
