@@ -2,6 +2,14 @@ async function getProducts() {
     return fetch("/json").then((res) => res.json())
 }
 
+function formatToIDR(price) {
+    return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0
+    }).format(price);
+}
+
 async function refreshProducts() {
     document.getElementById("product_cards").innerHTML = "";
     document.getElementById("product_cards").className = "";
@@ -29,7 +37,7 @@ async function refreshProducts() {
                     <img src="/media/${item.fields.image}" class="w-full rounded-t-xl">
                     <div class="px-3 py-2 flex flex-col gap-2">
                         <h1 class="font-semibold">${item.fields.name}</h1>
-                        <h2 class="font-bold text-sm md:text-lg">Rp${item.fields.price}</h2>
+                        <h2 class="font-bold text-sm md:text-lg">${formatToIDR(item.fields.price)}</h2>
                     </div>
                 </a>
                 <div class="px-3 py-2 flex flex-col gap-2">
