@@ -415,3 +415,92 @@ Dengan menambahkan script ini, saya dapat menggunakan kelas-kelas Tailwind CSS d
 
 **Desktop**
 ![navbar-desktop](https://github.com/user-attachments/assets/63073d93-012b-477b-a289-e62e85c18c45)
+
+---
+
+## Tugas 6 PBP Gasal 2024/2025
+
+### Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
+
+JavaScript adalah bahasa pemrograman yang sangat penting dalam pengembangan aplikasi web karena memungkinkan interaktivitas, pengolahan data asinkron, dan manipulasi DOM. Dengan JavaScript, pengembang dapat menciptakan elemen interaktif seperti tombol dan formulir, serta menggunakan AJAX untuk melakukan permintaan data tanpa memuat ulang halaman, sehingga meningkatkan pengalaman pengguna. Selain itu, JavaScript dapat mengubah struktur, gaya, dan konten halaman secara dinamis, memberikan pengalaman pengguna yang lebih kaya. Bahasa ini juga memiliki kompatibilitas lintas platform, dapat berjalan di semua browser modern, serta mendukung berbagai framework dan pustaka seperti React, Angular, dan Vue.js, yang membantu dalam pengembangan aplikasi web yang lebih kompleks dan terstruktur.
+
+### Jelaskan fungsi dari penggunaan `await` ketika kita menggunakan `fetch()`! Apa yang akan terjadi jika kita tidak menggunakan `await`?
+
+Penggunaan `await` dalam konteks asynchronous JavaScript berfungsi untuk menunggu hasil dari promise yang dikembalikan oleh fungsi `fetch()`, sehingga memungkinkan kode untuk dieksekusi dengan cara yang lebih mudah dibaca dan dikelola. Ketika `await` digunakan, kode akan berhenti sejenak sampai promise diselesaikan, memastikan bahwa data yang diperlukan sudah tersedia sebelum melanjutkan ke baris berikutnya. Jika `await` tidak digunakan, fetch akan mengembalikan promise tanpa menunggu, yang menyebabkan eksekusi kode berlanjut sebelum response diterima, sehingga dapat mengakibatkan kesalahan saat mencoba mengakses data yang belum ada.
+
+### Mengapa kita perlu menggunakan decorator `csrf_exempt` pada view yang akan digunakan untuk AJAX `POST`?
+
+Decorator `csrf_exempt` digunakan untuk menonaktifkan pemeriksaan CSRF (Cross-Site Request Forgery) pada view yang menerima permintaan AJAX POST, memberikan kenyamanan dalam pengembangan tanpa mengorbankan keamanan yang berlebihan. CSRF adalah serangan yang berusaha memanipulasi pengguna untuk melakukan tindakan yang tidak diinginkan, namun dalam kasus permintaan dari frontend yang aman (misalnya, dari pengguna yang terautentikasi), penggunaan `csrf_exempt` dapat mempermudah implementasi. Dengan menonaktifkan pemeriksaan CSRF untuk view tertentu, pengembang dapat fokus pada logika bisnis tanpa harus mengelola kompleksitas validasi yang seringkali terjadi pada permintaan AJAX.
+
+### Pada tutorial PBP minggu ini, pembersihan data *input pengguna dilakukan di belakang (*backend*) juga. Mengapa hal tersebut tidak dilakukan di *frontend* saja?
+
+Pembersihan data input pengguna dilakukan di backend karena alasan keamanan, konsistensi data, dan pengendalian logika bisnis. Data yang diterima dari frontend dapat dimanipulasi, sehingga validasi dan pembersihan di backend memastikan bahwa data yang diproses dan disimpan di database telah diverifikasi dan aman dari ancaman seperti injeksi SQL dan XSS. Selain itu, pembersihan di backend menjaga konsistensi data sesuai dengan aturan bisnis yang ditetapkan, dan sering kali memerlukan logika pembersihan yang kompleks yang lebih baik dikelola di backend, memungkinkan pemisahan tanggung jawab dan meningkatkan pemeliharaan kode.
+
+### Implementasi Checklist Secara Step-by-Step
+
+#### 1. Ubah tugas 5 menjadi AJAX `GET` untuk data produk pengguna yang logged-in.
+
+Saya memulai dengan mengubah kode yang mengelola data mood agar mendukung AJAX `GET`. Saya memastikan bahwa hanya data milik pengguna yang terautentikasi yang diambil. Langkah pertama adalah membuka `views.py` dan menghapus kode yang mengambil objek mood entry berdasarkan pengguna. Saya kemudian memperbarui fungsi `show_json` dan `show_xml` menjadi:
+
+```python
+data = Product.objects.filter(user=request.user)
+```
+
+Selanjutnya, saya beralih ke `profile/index.html`, di mana saya menghapus bagian conditional yang menampilkan pesan saat tidak ada data produk. Sebagai pengganti, saya menambahkan elemen berikut:
+
+```html
+<div id="product_cards"></div>
+```
+
+Di bagian `<script>`, saya membuat fungsi `getProducts()` untuk mengambil data produk dengan menggunakan fetch API:
+
+```javascript
+async function getProducts() {
+    return fetch("/json").then((res) => res.json())
+}
+```
+
+Saya juga menambahkan fungsi `refreshProducts()` untuk memperbarui tampilan data produk secara dinamis.
+
+#### 2. Ubah tugas 5 menjadi AJAX `POST` dengan modal untuk menambah produk.
+
+Saya menambahkan modal menggunakan Tailwind CSS untuk aplikasi saya. Modal ini ditempatkan di bawah div dengan ID `product_cards`. Untuk mengaktifkan modal, saya menambahkan fungsi JavaScript:
+
+```javascript
+function showModal() {
+    modal.classList.remove('hidden');
+    setTimeout(() => modalContent.classList.remove('opacity-0', 'scale-95'), 50);
+}
+
+function hideModal() {
+    modalContent.classList.add('opacity-0', 'scale-95');
+    setTimeout(() => modal.classList.add('hidden'), 150);
+}
+
+document.getElementById("cancelButton").addEventListener("click", hideModal);
+document.getElementById("closeModalBtn").addEventListener("click", hideModal);
+```
+
+Saya juga mengganti tombol "Create Product" dengan tombol untuk membuka modal:
+
+```html
+<button onclick="showModal();">Create Product by AJAX</button>
+```
+
+Selanjutnya, saya membuat fungsi `addProduct` untuk mengirim data melalui AJAX:
+
+```javascript
+function addProduct() {
+    fetch("/create-ajax", {
+        method: "POST",
+        body: new FormData(document.querySelector('#productForm')),
+    }).then(response => refreshProducts())
+
+    document.getElementById("productForm").reset();
+    hideModal();
+
+    return false;
+}
+
+document.getElementById("submitProductForm").onclick = addProduct
+```
