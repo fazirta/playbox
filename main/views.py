@@ -1,8 +1,11 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
+from django.utils.html import strip_tags
 from django.http import HttpResponse
 from django.contrib import messages
 from django.core import serializers
@@ -14,6 +17,29 @@ import datetime
 
 def landing(request):
     return render(request, "landing/index.html", {"products": Product.objects.all()})
+
+
+@csrf_exempt
+@require_POST
+def create_ajax(request):
+    name = strip_tags(request.POST.get("name"))
+    price = request.POST.get("price")
+    description = strip_tags(request.POST.get("description"))
+    stock = request.POST.get("stock")
+    image = request.FILES.get("image")
+    user = request.user
+
+    new_product = Product(
+        name=name,
+        price=price,
+        description=description,
+        stock=stock,
+        image=image,
+        user=user,
+    )
+    new_product.save()
+
+    return HttpResponse(b"CREATED", status=201)
 
 
 @login_required(login_url="/signin")
@@ -46,14 +72,14 @@ def delete(request, id):
 
 
 def show_xml(request):
-    data = Product.objects.all()
+    data = Product.objects.filter(user=request.user)
     return HttpResponse(
         serializers.serialize("xml", data), content_type="application/xml"
     )
 
 
 def show_json(request):
-    data = Product.objects.all()
+    data = Product.objects.filter(user=request.user)
     return HttpResponse(
         serializers.serialize("json", data), content_type="application/json"
     )

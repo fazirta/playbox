@@ -2,6 +2,7 @@ from django.urls import path
 from main.views import (
     landing,
     create,
+    create_ajax,
     edit,
     delete,
     show_xml,
@@ -19,6 +20,7 @@ app_name = "main"
 urlpatterns = [
     path("", landing, name="landing"),
     path("create", create, name="create"),
+    path("create-ajax", create_ajax, name="create_ajax"),
     path("edit/<uuid:id>", edit, name="edit"),
     path("delete/<uuid:id>", delete, name="delete"),
     path("xml/", show_xml, name="show_xml"),

@@ -1,0 +1,63 @@
+<div id="modal" tabindex="-1" aria-hidden="true"
+    class="hidden fixed inset-0 z-50 w-full flex items-center justify-center bg-gray-800 bg-opacity-50 overflow-x-hidden overflow-y-auto transition-opacity duration-300 ease-out">
+    <div id="modalContent"
+        class="relative bg-white rounded-lg shadow-lg w-5/6 sm:w-3/4 md:w-1/2 lg:w-1/3 mx-4 sm:mx-0 transform scale-95 opacity-0 transition-transform transition-opacity duration-300 ease-out">
+        <!-- Modal header -->
+        <div class="flex items-center justify-between p-4 border-b rounded-t">
+            <h3 class="text-xl font-semibold text-gray-900">Create Product</h3>
+            <button type="button"
+                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 transition rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                id="closeModalButton">
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+        </div>
+        <!-- Modal body -->
+        <div class="px-6 py-4 space-y-6 form-style">
+            <form method="POST" enctype="multipart/form-data" id="productForm"
+                class="w-full max-w-md md:max-w-2xl mx-auto p-2 md:p-8 rounded-2xl flex flex-col gap-5">
+                <div class="flex flex-col gap-2">
+                    <label class="text-neutral-600 font-bold">Name</label>
+                    <input type="text" name="name" maxlength="255" required="" aria-invalid="true"
+                        placeholder="Rexus Bluetooth Gamepad Gladius GX300"
+                        class="flex h-10 w-full rounded-[12px] border-2 border-slate-500/50 bg-transparent px-5 py-3 text-sm focus-visible:outline-none focus-visible:border-slate-500">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label class="text-neutral-600 font-bold">Price</label>
+                    <input type="number" name="price" required="" aria-invalid="true" placeholder="409000"
+                        class="flex h-10 w-full rounded-[12px] border-2 border-slate-500/50 bg-transparent px-5 py-3 text-sm focus-visible:outline-none focus-visible:border-slate-500">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label class="text-neutral-600 font-bold">Description</label>
+                    <textarea name="description" cols="40" rows="3" required="" aria-invalid="true"
+                        placeholder="This ergonomic gamepad features a textured grip for non-slip play, a 3.5mm TRRS port for microphones and headsets, a touchpad, hall magnetic trigger sensors, and a six-axis sensor. It has a 600 mAh battery rechargeable via a Type-C to USB cable."
+                        class="flex w-full rounded-[12px] border-2 border-slate-500/50 bg-transparent px-5 py-3 text-sm focus-visible:outline-none focus-visible:border-slate-500"></textarea>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label class="text-neutral-600 font-bold">Stock</label>
+                    <input type="number" name="stock" min="0" required="" aria-invalid="true" placeholder="887"
+                        class="flex h-10 w-full rounded-[12px] border-2 border-slate-500/50 bg-transparent px-5 py-3 text-sm focus-visible:outline-none focus-visible:border-slate-500">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label class="text-neutral-600 font-bold">Image</label>
+                    <input type="file" name="image" accept="image/*" required="" aria-invalid="true" placeholder=""
+                        class="flex h-10 w-full rounded-[12px] border-2 border-slate-500/50 bg-transparent px-5 py-3 text-sm focus-visible:outline-none focus-visible:border-slate-500">
+                </div>
+            </form>
+        </div>
+        <!-- Modal footer -->
+        <div
+            class="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2 p-6 border-t border-gray-200 rounded-b justify-center md:justify-end">
+            <button type="button"
+                class="bg-red-500 hover:bg-red-600 hover:shadow transition duration-300 text-white font-bold py-2 px-4 rounded-lg"
+                id="cancelButton">Cancel</button>
+            <button type="submit" id="submitProductForm" form="productForm"
+                class="bg-blue-700 hover:bg-blue-600 hover:shadow transition duration-300 text-white font-bold py-2 px-4 rounded-lg">Create</button>
+        </div>
+    </div>
+</div>

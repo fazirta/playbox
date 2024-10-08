@@ -9,37 +9,26 @@
                     class="fa-solid fa-user text-3xl sm:text-5xl bg-gradient-to-r from-blue-900 to-red-900 inline-block text-transparent bg-clip-text"></i>
             </div>
         </div>
-        <div class="flex flex-col">
+        <div class="flex flex-col md:flex-1">
             <h1 class="text-2xl font-semibold mt-3.5">{{ request.user.username }}</h1>
-            <h2 class="text-xs font-semibold text-neutral-500 text-center mt-1">
-                Last login: {{ request.user.last_login }}
+            <h2 class="text-xs font-semibold text-neutral-500 mt-1"> Last login: {{ request.user.last_login }}
             </h2>
-            <a href="{% url 'main:signout' %}"
-                class="mt-4 w-full py-2 bg-red-500 rounded-xl font-semibold text-white text-center hover:shadow hover:bg-red-600 transition duration-300">
-                <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i>
-                Sign out
-            </a>
-        </div>
-    </div>
-    <div class="mt-8 py-2 rounded-2xl">
-        <h1 class="font-bold text-xl md:text-2xl">Your Products</h1>
-        {% if not products %}
-        <div class="mt-4 flex justify-center items-center">
-            <img src="{% static 'empty-box.png' %}" alt="empty box" class="max-w-36 md:max-w-64">
-            <div class="max-w-64">
-                <h1 class="text-lg md:text-xl font-semibold">No Products Found</h1>
-                <h2 class="text-neutral-500 mt-2">
-                    It looks like you haven't registered any products yet. Start adding some to see them here!
-                </h2>
+            <div class="mt-4 flex flex-wrap gap-2">
+                <a href="{% url 'main:signout' %}"
+                    class="max-w-48 w-full py-2 bg-red-500 rounded-xl font-semibold text-white text-center hover:shadow hover:bg-red-600 transition duration-300">
+                    <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> Sign out </a>
+                <button data-modal-target="modal" data-modal-toggle="modal"
+                    class="max-w-48 w-full py-2 bg-emerald-500 rounded-xl font-semibold text-white text-center hover:shadow hover:bg-emerald-600 transition duration-300"
+                    onclick="showModal();">
+                    <i class="fa-solid fa-plus mr-2"></i> Create Product </button>
             </div>
         </div>
-        {% else %}
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-5 mt-4">
-            {% for product in products %}
-            {% include 'profile/product.html' %}
-            {% endfor %}
-        </div>
-        {% endif %}
+    </div> {% include 'profile/modal.html' %} <div class="mt-8 py-2 rounded-2xl">
+        <h1 class="font-bold text-xl md:text-2xl">Your Products</h1>
+        <div id="product_cards"></div>
     </div>
 </main>
 {% endblock content %}
+{% block script %}
+<script type="text/javascript" src="{% static 'profile/script.js' %}"></script>
+{% endblock script %}
