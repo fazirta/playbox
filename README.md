@@ -432,7 +432,7 @@ Penggunaan `await` dalam konteks asynchronous JavaScript berfungsi untuk menungg
 
 Decorator `csrf_exempt` digunakan untuk menonaktifkan pemeriksaan CSRF (Cross-Site Request Forgery) pada view yang menerima permintaan AJAX POST, memberikan kenyamanan dalam pengembangan tanpa mengorbankan keamanan yang berlebihan. CSRF adalah serangan yang berusaha memanipulasi pengguna untuk melakukan tindakan yang tidak diinginkan, namun dalam kasus permintaan dari frontend yang aman (misalnya, dari pengguna yang terautentikasi), penggunaan `csrf_exempt` dapat mempermudah implementasi. Dengan menonaktifkan pemeriksaan CSRF untuk view tertentu, pengembang dapat fokus pada logika bisnis tanpa harus mengelola kompleksitas validasi yang seringkali terjadi pada permintaan AJAX.
 
-### Pada tutorial PBP minggu ini, pembersihan data *input pengguna dilakukan di belakang (*backend*) juga. Mengapa hal tersebut tidak dilakukan di *frontend* saja?
+### Pada tutorial PBP minggu ini, pembersihan data *input* pengguna dilakukan di belakang (*backend*) juga. Mengapa hal tersebut tidak dilakukan di *frontend* saja?
 
 Pembersihan data input pengguna dilakukan di backend karena alasan keamanan, konsistensi data, dan pengendalian logika bisnis. Data yang diterima dari frontend dapat dimanipulasi, sehingga validasi dan pembersihan di backend memastikan bahwa data yang diproses dan disimpan di database telah diverifikasi dan aman dari ancaman seperti injeksi SQL dan XSS. Selain itu, pembersihan di backend menjaga konsistensi data sesuai dengan aturan bisnis yang ditetapkan, dan sering kali memerlukan logika pembersihan yang kompleks yang lebih baik dikelola di backend, memungkinkan pemisahan tanggung jawab dan meningkatkan pemeliharaan kode.
 
