@@ -56,7 +56,7 @@ def create(request):
 @login_required(login_url="/signin")
 def edit(request, id):
     product = Product.objects.get(pk=id)
-    form = ProductForm(request.POST or None, request.FILES, instance=product)
+    form = ProductForm(request.POST or None, request.FILES or None, instance=product)
     if form.is_valid() and request.method == "POST":
         form.save()
         return HttpResponseRedirect(reverse("main:profile"))
