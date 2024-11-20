@@ -7,12 +7,14 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.utils.html import strip_tags
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.contrib import messages
 from django.core import serializers
 from main.forms import ProductForm
 from django.urls import reverse
 from main.models import Product
 import datetime
+import json
 
 
 def landing(request):
@@ -135,3 +137,24 @@ def signout(request):
     response = HttpResponseRedirect(reverse("main:landing"))
     response.delete_cookie("last_login")
     return response
+
+
+@csrf_exempt
+def create_mood_flutter(request):
+    if request.method == "POST":
+
+        data = json.loads(request.body)
+        new_mood = Product.objects.create(
+            user=request.user,
+            name=data["name"],
+            price=int(data["price"]),
+            description=data["description"],
+            stock=int(data["stock"]),
+            image=data["image"],
+        )
+
+        new_mood.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
